@@ -1,0 +1,12 @@
+<h3> Do you want to post the following content?</h3>
+
+<%= form_with(model: @post,url: posts_path, local: true) do |form| %>
+  <%= form.hidden_field :tweet %>
+  <p><strong>tweet:</strong>
+    <%= @post.tweet %>
+  </p>
+  <div class="action">
+  <%= form.submit "Yes" %>
+  <%= form.submit "No", name: 'back' %>
+  </div>
+<% end %>

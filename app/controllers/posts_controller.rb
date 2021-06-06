@@ -27,17 +27,18 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
-
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to @post, notice: "Post was successfully created." }
-        format.json { render :show, status: :created, location: @post }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+    if params[:back]
+    render :new
+  else
+        if @post.save
+          redirect_to @post, notice: "Post was successfully created."
+        else
+          render :new, status: :unprocessable_entity
+        end
       end
     end
-  end
+
+
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
@@ -57,7 +58,7 @@ class PostsController < ApplicationController
     @post.destroy
     respond_to do |format|
       format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
-      format.json { head :no_content }
+      format.json { head :no_tweet }
     end
   end
 
