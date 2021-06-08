@@ -19,26 +19,19 @@ class PostsController < ApplicationController
   def edit
   end
 
-  def confirm
-    @post = Post.new(post_params)
-    render :new if @post.invalid?
-  end
-
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
     if params[:back]
-    render :new
-  else
-        if @post.save
-          redirect_to @post, notice: "Post was successfully created."
-        else
-          render :new, status: :unprocessable_entity
-        end
+      render :new
+    else
+      if @post.save
+        redirect_to @post, notice: "Post was successfully created."
+      else
+        render :new, status: :unprocessable_entity
       end
     end
-
-
+  end
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
@@ -53,23 +46,26 @@ class PostsController < ApplicationController
     end
   end
 
+  def confirm
+    @post = Post.new(post_params)
+    render :new if @post.invalid?
+  end
+
   # DELETE /posts/1 or /posts/1.json
   def destroy
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
-      format.json { head :no_tweet }
+      format.html { redirect_to posts_url, notice: "Post was successfully deleted." }
+      format.json { head :no_content }
     end
   end
 
   private
-
   def set_post
   @post = Post.find(params[:id])
   end
 
-    # Only allow a list of trusted parameters through.
   def post_params
   params.require(:post).permit(:tweet)
   end
-end
+  end

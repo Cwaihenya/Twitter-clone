@@ -2,10 +2,10 @@
 
 <%= form_with(model: @post,url: posts_path, local: true) do |form| %>
   <%= form.hidden_field :tweet %>
-  <p><strong>tweet:</strong>
+  <p><strong>Tweet:</strong>
     <%= @post.tweet %>
   </p>
-  <div class="action">
+  <div class="actions">
   <%= form.submit "Yes" %>
   <%= form.submit "No", name: 'back' %>
   </div>
